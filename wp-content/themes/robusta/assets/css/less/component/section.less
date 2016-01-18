@@ -1,0 +1,362 @@
+.ro-dance-club-slider.wpb_content_element {
+	margin-bottom: 0 !important;
+}
+.ro-dance-club {
+	position: absolute !important;
+	top: 0;
+	left: 0;
+	height: 100%;
+	padding-top: 120px;
+	&:before{
+		background: fadeout(@light-color, 10);
+		content: "";
+		display: block;
+		position: absolute;
+		top: 0;
+		left: -440px;
+		width: 440px;
+		height: 100%;
+	}
+	.ro-icon-link {
+		position: absolute;
+		right: -15px;
+		top: 50%;
+		-webkit-transform: translateY(-50%);
+		-moz-transform: translateY(-50%);
+		-o-transform: translateY(-50%);
+		-ms-transform: translateY(-50%);
+		transform: translateY(-50%);
+	}
+	.ro-icon-group-wrap {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+	}
+}
+
+.ro-dance-club-section {
+	.vc_tta-container {
+		background: fadeout(@light-color, 10);
+		height: 100%;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		.vc_general.vc_tta.vc_tta-tabs {
+			height: 100%;
+			min-width: 460px;
+			position: absolute;
+			right: 0;
+			top: 0;
+			.vc_tta-tabs-container {
+				position: absolute !important;
+				bottom: 0;
+				right: 0;
+				.vc_tta-tabs-list {
+					background: fadeout(@light-color, 40);
+					.vc_tta-tab {
+						display: inline-block;
+						margin: 0;
+						position: relative;
+						> a {
+							font-size: 18px;
+							color: @dark-color;
+							background: transparent;
+							padding: 25px 40px;
+							border: none;
+							&:last-child {
+								border: none;
+							}
+							&:before, &:after {
+								display: none;
+							}
+						}
+						&:after {
+							content: "";
+							height: 40px;
+							position: absolute;
+							top: 18px;
+							right: 0;
+							border-right: 1px solid fadeout(@dark-color, 80);
+						}
+						&:last-child {
+							&:after {
+								border: none;
+							}
+						}
+						&.vc_active {
+							> a {
+								color: @main-color;
+							}
+						}
+					}
+				}
+			}
+			.vc_general.vc_pagination {
+				position: absolute;
+				top: 50%;
+				left: auto;
+				right: -15px;
+				margin: 0;
+				width: 30px;
+				height: 30px;
+				-webkit-transform: translateY(-50%);
+				-moz-transform: translateY(-50%);
+				-o-transform: translateY(-50%);
+				-ms-transform: translateY(-50%);
+				transform: translateY(-50%);
+				.vc_pagination-item {
+					position: absolute;
+					top: 0;
+					right: 0;
+					width: 30px;
+					height: 30px;
+					z-index: 9;
+					> a {
+						margin: 0;
+						width: 30px;
+						height: 30px;
+						line-height: 30px;
+						text-align: center;
+						color: @light-color;
+						background: @main-color;
+						border: none;
+						&:after {
+							font-family: Robusta;
+							font-size: 15px;
+							content: "\e1dc";
+						}
+						&:hover {
+							background: @dark-color;
+						}
+					}
+				}
+				.vc_pagination-item.vc_active + .vc_pagination-item{
+					z-index: 99;
+				}
+			}
+			.vc_tta-panels {
+				background: transparent;
+				border: none;
+				.vc_tta-panel-body {
+					padding-top: 120px;
+				}
+			}
+		}
+		.vc_tta-panels {
+			.vc_tta-panel {
+				.vc_tta-panel-heading {
+					background: fadeout(@light-color, 40);
+					.vc_tta-panel-title > a {
+						color: @dark-color;
+					}
+					&:hover {
+						background: fadeout(@light-color, 40);
+					}
+				}
+				&.vc_active {
+					.vc_tta-panel-heading {
+						background: fadeout(@light-color, 40);
+						.vc_tta-panel-title > a {
+							color: @main-color;
+						}
+					}
+				}
+				.vc_tta-panel-body {
+					background: transparent;
+				}
+			}
+		}
+	}
+}
+
+.ro-collections-section {
+	.vc_tta.vc_general {
+		.vc_tta-tab {
+			> a {
+				font-family: Montserrat;
+				font-size: @font-size-6;
+				min-width: 260px;
+				color: @dark-color;
+				background: @bg-color-3;
+				border: none;
+				border-radius: 0;
+			}
+			&.vc_active {
+				> a {
+					background: @main-color;
+					color: @light-color;
+				}
+			}
+		}
+		&.vc_tta-tabs .vc_tta-panels {
+			background: @light-color;
+			border: none;
+			.vc_tta-panel {
+				margin: 0;
+				.vc_tta-panel-body {
+					padding: 0 0 0 40px;
+					border: none;
+					-webkit-transition: none 0s ease 0s ;
+					-moz-transition: none 0s ease 0s ;
+					-o-transition: none 0s ease 0s ;
+					-ms-transition: none 0s ease 0s ;
+					transition: none 0s ease 0s ;
+				}
+			}
+			
+		}
+		&.vc_tta-tabs-position-right.vc_tta-tabs .vc_tta-panels {
+			.vc_tta-panel .vc_tta-panel-body {
+				padding: 0 40px 0 0;
+			}
+		}
+		.vc_tta-panel {
+			.vc_tta-panel-heading {
+				border: none;
+				border-radius: 0;
+				.vc_tta-panel-title > a {
+					font-family: Montserrat;
+					font-size: @font-size-6;
+					color: @dark-color;
+					background: @bg-color-3;
+				}
+			}
+			&.vc_active {
+				.vc_tta-panel-heading {
+					.vc_tta-panel-title > a {
+						background: @main-color;
+						color: @light-color;
+					}
+				}
+			}
+		}
+	}
+	.ro-info .ro-info-inner {
+		line-height: 22.4px;
+		h4 {
+			font-size: @font-size-3;
+			line-height: 38.4px;
+			letter-spacing: 0;
+			margin-bottom: 10px;
+		}
+	}
+	.vc_tta-tabs {
+		&.vc_tta-has-pagination .vc_pagination {
+			margin: 0;
+			position: absolute;
+			top: 150px;
+			left: auto;
+			right: 40px;
+			z-index: 999;
+			.vc_pagination-item {
+				position: absolute;
+				top: 0;
+				right: 0;
+				z-index: 9;
+				> a {
+					margin: 0;
+					height: 30px;
+					width: 80px;
+					text-align: right;
+					color: @light-color;
+					background: transparent;
+					border: none;
+					&:before {
+						content: "";
+						width: 50px;
+						position: absolute;
+						left: 0;
+						top: 50%;
+					}
+					&:after {
+						font-family: Robusta;
+						font-size: 10px;
+						content: "\e1c6";
+						width: 30px;
+						height: 30px;
+						line-height: 30px;
+						text-align: center;
+						display: inline-block;
+					}
+				}
+				&:first-child {
+					> a {
+						&:before {
+							border-top: 1px dotted @light-color;
+						}
+						&:after {
+							border: 1px solid @light-color;
+							-webkit-border-radius: 50%;
+							-moz-border-radius: 50%;
+							border-radius: 50%;
+						}
+					}
+				}
+				&:before {
+					content: "";
+					height: 8px;
+					width: 8px;
+					position: absolute;
+					top: 12px;
+					left: 0;
+					background: @light-color;
+					border-radius: 50%;
+				}
+			}
+			.vc_pagination-item.vc_active + .vc_pagination-item{
+				z-index: 99;
+			}
+		}
+		&.vc_tta-tabs-position-right.vc_tta-has-pagination .vc_pagination {
+			right: 80px;
+		}
+	}
+}
+.ro-testimonial-section {
+	.flex-control-nav {
+		bottom: -100px;
+	}
+}
+.ro-video-section {
+	h6 {
+		font-size: @font-size-7;
+	}
+	h6, h3 {
+		letter-spacing: 0.1em;
+	}
+}
+.ro-photo-stream-section {
+	.wpb_single_image {
+		max-width: 260px;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 28px !important;
+		overflow: hidden;
+	}
+	.ro-info {
+		.ro-overlay {
+			background: fadeout(@bg-color-2, 50);
+		}
+	} 
+}
+
+.ro-reservation-section {
+	input[type="submit"] {
+		width: 100%;
+	}
+}
+
+@media(max-width: @screen-md - 1) {
+	.ro-dance-club {
+		padding-top: 70px;
+	}
+}
+
+@media(max-width: @screen-sm - 1) {
+	.ro-dance-club-section .vc_tta-container .vc_general.vc_tta.vc_tta-tabs {
+		min-width: auto;
+		.vc_tta-panels .vc_tta-panel-body {
+			padding: 14px 20px;
+		}
+	}
+}

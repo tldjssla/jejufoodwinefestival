@@ -1,0 +1,154 @@
+body {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 25px;
+}
+h7, h8 {
+	display: block;
+	margin-bottom: 25px;
+}
+.ro-hr-heading {
+	margin-bottom: 40px;
+	img {
+		width: 60px;
+		height: auto;
+	}
+	h4 {
+		font-size: 20px;
+		margin-bottom: 40px;
+	}
+	h7 {
+		margin-bottom: 15px;
+	}
+    &:after {
+        content: " ";
+        display: block;
+        width: 40px;
+        margin-top: 20px;
+        height: 0;
+        border-top: 2px solid @dark-color;
+    }
+	&.tpl2 {
+		text-align: center;
+		img {
+			margin-bottom: 40px;
+		}
+		h4 {
+			margin-bottom: 15px;
+		}
+		&:after {
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+	&.tpl3 {
+		img {
+			float: left;
+		}
+		h4 {
+			margin-bottom: 15px;
+		}
+		h4, h6, .ro-content, &:after {
+			margin-left: 80px;
+		}
+	}
+	&.tpl4 {
+		text-align: center;
+		img {
+			margin-bottom: 30px;
+		}
+		h6 {
+			letter-spacing: 1.2px;
+			margin-bottom: 25px;
+		}
+		&:after {
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+}
+.ro-custom-heading {
+	margin-bottom: 40px;
+	letter-spacing: 1.2px;
+	&:after {
+		content: "";
+		display: block;
+		margin-top: 20px;
+		width: 40px;
+		border-top: 2px solid @dark-color;
+	}
+}
+
+.ro-hr {
+    .center-block;
+    width: 80%;
+    border-top: 1px solid fadeout( @gray-color, 60 );
+    margin: 0 auto;
+
+    &.ro-full {
+        width: 100%;
+    }
+    &.ro-light-color {
+        border-color: @light-color;
+    }
+	&.ro-dark-color {
+        border-color: @dark-color;
+    }
+}
+
+p {
+    margin-bottom: 25px;
+}
+
+for @i from 1 to 7 {
+    h@i {
+        font-size: nth(@font-size-list, @i);
+    }
+}
+
+for @i from 1 to 7 {
+    .ro-font-size-@i {
+        font-size: nth(@font-size-list, @i);
+    }
+}
+
+::selection {
+    background: @main-color;
+    color: @light-color;
+}
+
+.ro-ellipsis {
+    overflow: hidden;
+}
+
+.ro-quote-content {
+    padding-top: 30px;
+    margin-bottom: 0;
+    font-style: italic;
+    font-weight: 400;
+
+    q:before, q:after {
+        font-style: italic;
+        font-size: 30px;
+        line-height: 16px;
+        font-weight: 600;
+    }
+
+    q:before {
+        content: open-quote;
+    }
+
+    q:after {
+        content: close-quote;
+    }
+
+    .ro-author-name {
+        padding-top: 20px;
+        font-weight: 700;
+        text-align: right;
+        color: @main-color;
+    }
+}
