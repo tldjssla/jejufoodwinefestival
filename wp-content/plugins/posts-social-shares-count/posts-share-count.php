@@ -3,7 +3,8 @@
  * Plugin Name: Posts Social Shares Count
  * Plugin URI: http://bishoy.me/wp-plugins/posts-social-shares-count/
  * Description: This plugin allows you to count posts and pages shares count for 7 different social networks using shortcodes and functions! If you like this free plugin, please <a href="http://bishoy.me/donate" target="_blank">consider a donation</a>.
- * Version: 1.3.1
+ * Version: 1.4.1
+ * Tested up to: 4.3.1
  * Author: Bishoy A.
  * Author URI: http://bishoy.me
  * License: GPL2
@@ -88,6 +89,12 @@ if ( ! class_exists( 'BaPSSC' ) ) {
 			add_shortcode( 'pssc_all', array( $this, 'all_count' ) );
 
 			add_action( 'post_submitbox_misc_actions', array( $this, 'admin_edit_shares' ) );
+
+			add_filter( 'manage_posts_columns', array( $this, 'columns_head' ), 10, 2 );
+			add_action( 'manage_posts_custom_column', array( $this, 'columns_content' ), 10, 2 );
+
+			add_filter( 'manage_pages_columns', array( $this, 'columns_head' ), 10, 2 );
+			add_action( 'manage_pages_custom_column', array( $this, 'columns_content' ), 10, 2 );
 		}
 
 		public function admin_edit_shares() {
@@ -102,6 +109,36 @@ if ( ! class_exists( 'BaPSSC' ) ) {
 			<?php
 		}
 
+		function columns_head( $defaults, $post_type = '' ) {
+			if ( ! empty( $post_type ) ) {
+				$post_type_object = get_post_type_object( $post_type );
+			}
+
+			if ( ! empty( $post_type_object ) ) {
+				if ( ! $post_type_object->publicly_queryable ) return;
+			}
+
+		    $defaults['pssc_shares'] = 'Shares';
+		    return $defaults;
+		}
+
+		function columns_content( $column_name, $post_ID ) {
+			
+			$post_type = get_post_type( $post_ID );
+
+			if ( ! empty( $post_type ) ) {
+				$post_type_object = get_post_type_object( $post_type );
+			}
+
+			if ( ! empty( $post_type_object ) ) {
+				if ( ! $post_type_object->publicly_queryable ) return;
+			}
+
+		    if ( $column_name == 'pssc_shares' ) {
+		        echo pssc_all( $post_ID );
+		    }
+		}
+
 		/**
 		 * Shortcode [pssc_facebook]
 		 * @param  array $atts
@@ -114,6 +151,7 @@ if ( ! class_exists( 'BaPSSC' ) ) {
 		}
 
 		/**
+		 * @deprecated 1.4.1
 		 * Shortcode [pssc_twitter]
 		 * @param  array $atts
 		 * @uses   pssc_twitter()

@@ -29,13 +29,12 @@ class PsscShareCount {
 	}
 
 	/**
+	 * @deprecated 1.4.1
 	 * Get Twitter Tweets
 	 * @return integer Tweets count
 	 */
 	public function pssc_twitter() { 
-		$json_string = $this->file_get_contents_curl( 'http://urls.api.twitter.com/1/urls/count.json?url=' . $this->url );
-		$json = json_decode( $json_string, true );
-		return isset( $json['count'] ) ? intval( $json['count'] ) : 0;
+		return;
 	}
 
 	/**
@@ -55,7 +54,7 @@ class PsscShareCount {
 	public function pssc_facebook() {
 		$json_string = $this->file_get_contents_curl( 'http://api.facebook.com/restserver.php?method=links.getStats&format=json&urls='.$this->url );
 		$json = json_decode( $json_string, true );
-		return isset( $json[0]['total_count'] ) ? intval( $json[0]['total_count'] ) : 0;
+		return isset( $json[0]['share_count'] ) ? intval( $json[0]['share_count'] ) : 0;
 	}
 
 	/**
@@ -63,16 +62,8 @@ class PsscShareCount {
 	 * @return integer
 	 */
 	public function pssc_gplus() {
-		$curl = curl_init();
-		curl_setopt( $curl, CURLOPT_URL, 'https://clients6.google.com/rpc' );
-		curl_setopt( $curl, CURLOPT_POST, true );
-		curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, false );
-		curl_setopt( $curl, CURLOPT_POSTFIELDS, '[{"method":"pos.plusones.get","id":"p","params":{"nolog":true,"id":"'.rawurldecode( $this->url ).'","source":"widget","userId":"@viewer","groupId":"@self"},"jsonrpc":"2.0","key":"p","apiVersion":"v1"}]');
-		curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
-		curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'Content-type: application/json' ) );
-		$curl_results = curl_exec( $curl );
-		curl_close( $curl );
-		$json = json_decode( $curl_results, true );
+		$json_string = $this->file_get_contents_curl( 'https://clients6.google.com/rpc', '[{"method":"pos.plusones.get","id":"p","params":{"nolog":true,"id":"'.rawurldecode( $this->url ).'","source":"widget","userId":"@viewer","groupId":"@self"},"jsonrpc":"2.0","key":"p","apiVersion":"v1"}]', array( 'Content-type: application/json' ) );
+		$json = json_decode( $json_string, true );
 		return isset( $json[0]['result']['metadata']['globalCounts']['count'] ) ? intval( $json[0]['result']['metadata']['globalCounts']['count'] ) : 0;
 	}
 
@@ -102,8 +93,12 @@ class PsscShareCount {
 	 */
 	public function pssc_pinterest() {
 		$return_data = $this->file_get_contents_curl( 'http://api.pinterest.com/v1/urls/count.json?url='.$this->url );
-		$json_string = preg_replace( '/^receiveCount((.*))$/', "\1", $return_data );
-		$json = json_decode( $json_string, true );
+		
+		if ( ! is_wp_error( $return_data ) ) {
+			$json_string = preg_replace( "/[^(]*\((.*)\)/", "$1", $return_data );
+			$json = json_decode( $json_string, true );
+		}
+
 		return isset( $json['count'] ) ? intval( $json['count'] ) : 0;
 	}
 
@@ -112,18 +107,38 @@ class PsscShareCount {
 	 * @param  string $url
 	 * @return mixed
 	 */
-	private function file_get_contents_curl( $url ) {
+	private function file_get_contents_curl( $url, $post_fields = '', $http_header = array() ) {
+		
+		// support location redirects to future-proof script
+		// Thanks to Ryan https://wordpress.org/support/topic/fix-curlopt_followlocation-error-with-safe_mode-and-open_dir?replies=2#post-7575577
+
+		$max_redirs = (ini_get('open_basedir') == '' && ini_get('safe_mode' == 'Off')) ? 2 : 0;
+
 		$ch = curl_init();
-		curl_setopt( $ch, CURLOPT_URL, $url );
-		curl_setopt( $ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT'] );
-		curl_setopt( $ch, CURLOPT_FAILONERROR, 1 );
-		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1 );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER,1 );
-		curl_setopt( $ch, CURLOPT_TIMEOUT, $this->timeout );
+
+		$opt_arr = array(
+			CURLOPT_URL => $url,
+			CURLOPT_USERAGENT => $_SERVER['HTTP_USER_AGENT'],
+			CURLOPT_FAILONERROR => 1,
+			CURLOPT_FOLLOWLOCATION => $max_redirs > 0,
+			CURLOPT_RETURNTRANSFER => 1,
+			CURLOPT_TIMEOUT => $this->timeout,			
+		);
+
+		if ( ! empty( $post_fields ) )
+			$opt_arr[CURLOPT_POSTFIELDS] = $post_fields;
+
+		if ( ! empty( $http_header ) )
+			$opt_arr[CURLOPT_HTTPHEADER] = $http_header;
+
+		curl_setopt_array( $ch, $opt_arr );
+
 		$cont = curl_exec( $ch );
-		if ( curl_error( $ch ) )	{
-			die( curl_error( $ch ) );
+
+		if ( curl_error( $ch ) ) {
+			return new WP_Error( 'pssc_curl_error', curl_error( $ch ) );
 		}
+
 		return $cont;
 	}
 
@@ -134,7 +149,6 @@ class PsscShareCount {
 	public function pssc_all() {
 		$count = 0;
 
-		$tw = $this->pssc_twitter();
 		$fb = $this->pssc_facebook();
 		$li = $this->pssc_linkedin();
 		$gp = $this->pssc_gplus();
@@ -142,7 +156,7 @@ class PsscShareCount {
 		$st = $this->pssc_stumble();
 		$pi = $this->pssc_pinterest();
 
-		$count = $tw + $fb + $li + $gp + $dl + $st + $pi;
+		$count = $fb + $li + $gp + $dl + $st + $pi;
 
 		return $count;
 	}
