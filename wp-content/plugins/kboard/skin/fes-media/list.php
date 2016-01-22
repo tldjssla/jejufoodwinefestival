@@ -50,7 +50,6 @@
 					<td class="kboard-list-title"><?php echo __('Title', 'kboard')?></td>
 					<td class="kboard-list-user"><?php echo __('Author', 'kboard')?></td>
 					<td class="kboard-list-date"><?php echo __('Date', 'kboard')?></td>
-					<td class="kboard-list-view"><?php echo __('Views', 'kboard')?></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -63,7 +62,6 @@
 						</div></td>
 					<td class="kboard-list-user"><?php echo $content->member_display?></td>
 					<td class="kboard-list-date"><?php echo date("Y.m.d", strtotime($content->date))?></td>
-					<td class="kboard-list-view"><?php echo $content->view?></td>
 				</tr>
 				<?php endwhile?>
 				<?php while($content = $list->hasNext()):?>
@@ -77,7 +75,6 @@
 						</div></td>
 					<td class="kboard-list-user"><?php echo $content->member_display?></td>
 					<td class="kboard-list-date"><?php echo date("Y.m.d", strtotime($content->date))?></td>
-					<td class="kboard-list-view"><?php echo $content->view?></td>
 				</tr>
 				<?php $boardBuilder->builderReply($content->uid)?>
 				<?php endwhile?>

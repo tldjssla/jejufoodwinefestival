@@ -8,11 +8,9 @@ ro_theme_title_bar($tb_show_page_title, $tb_show_page_breadcrumb);
 $tb_show_page_comment = (int) isset($tb_options['tb_page_show_page_comment']) ?  $tb_options['tb_page_show_page_comment']: 1;
 ?>
 	<div class="main-content ro-container">
-		안녕
 		<?php while ( have_posts() ) : the_post(); ?>
 			<?php the_content(); ?>
 			<div style="clear: both;"></div>
-			<?php echo "hi<br/>"?>
 			<?php if($tb_show_page_comment){ ?>
 					
 					<?php if ( comments_open() || get_comments_number() ) comments_template(); ?>

@@ -47,30 +47,9 @@
 			<?php endif?>
 		<?php endif?>
 		
-		<div class="kboard-attr-row">
-			<label class="attr-name"><?php echo __('Secret', 'kboard')?></label>
-			<div class="attr-value"><input type="checkbox" name="secret" value="true"<?php if($content->secret):?> checked<?php endif?>></div>
-		</div>
+
 		
-		<?php if($board->isAdmin()):?>
-		<div class="kboard-attr-row">
-			<label class="attr-name"><?php echo __('Notice', 'kboard')?></label>
-			<div class="attr-value"><input type="checkbox" name="notice" value="true"<?php if($content->notice):?> checked<?php endif?>></div>
-		</div>
-		<?php elseif(!is_user_logged_in()):?>
-		<div class="kboard-attr-row">
-			<label class="attr-name"><?php echo __('Author', 'kboard')?></label>
-			<div class="attr-value"><input type="text" name="member_display" value="<?php echo $content->member_display?>"></div>
-		</div>
-		<div class="kboard-attr-row">
-			<label class="attr-name"><?php echo __('Password', 'kboard')?></label>
-			<div class="attr-value"><input type="password" name="password" value="<?php echo $content->password?>"></div>
-		</div>
-		<div class="kboard-attr-row">
-			<label class="attr-name"><img src="<?php echo kboard_captcha()?>" alt=""></label>
-			<div class="attr-value"><input type="text" name="captcha" value=""></div>
-		</div>
-		<?php endif?>
+
 		
 		<div class="kboard-content">
 			<?php if($board->use_editor):?>
@@ -80,28 +59,7 @@
 			<?php endif?>
 		</div>
 		
-		<div class="kboard-attr-row">
-			<label class="attr-name"><?php echo __('Thumbnail', 'kboard')?></label>
-			<div class="attr-value">
-				<?php if($content->thumbnail_file):?><?php echo $content->thumbnail_name?> - <a href="<?php echo $url->getDeleteURLWithAttach($content->uid);?>" onclick="return confirm('<?php echo __('Are you sure you want to delete?', 'kboard')?>');"><?php echo __('Delete file', 'kboard')?></a><?php endif?>
-				<input type="file" name="thumbnail">
-			</div>
-		</div>
-		
-		<div class="kboard-attr-row">
-			<label class="attr-name"><?php echo __('Attachment', 'kboard')?></label>
-			<div class="attr-value">
-				<?php if(isset($content->attach->file1)):?><?php echo $content->attach->file1[1]?> - <a href="<?php echo $url->getDeleteURLWithAttach($content->uid, 'file1');?>" onclick="return confirm('<?php echo __('Are you sure you want to delete?', 'kboard')?>');"><?php echo __('Delete file', 'kboard')?></a><?php endif?>
-				<input type="file" name="kboard_attach_file1">
-			</div>
-		</div>
-		<div class="kboard-attr-row">
-			<label class="attr-name"><?php echo __('Attachment', 'kboard')?></label>
-			<div class="attr-value">
-				<?php if(isset($content->attach->file2)):?><?php echo $content->attach->file2[1]?> - <a href="<?php echo $url->getDeleteURLWithAttach($content->uid, 'file2');?>" onclick="return confirm('<?php echo __('Are you sure you want to delete?', 'kboard')?>');"><?php echo __('Delete file', 'kboard')?></a><?php endif?>
-				<input type="file" name="kboard_attach_file2">
-			</div>
-		</div>
+
 		
 		<div class="kboard-attr-row">
 			<label class="attr-name"><?php echo __('WP Search', 'kboard')?></label>

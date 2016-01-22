@@ -32,10 +32,13 @@
 		</div>
 		
 		<div class="kboard-content" itemprop="description">
+			<?php echo $content->option->urlLink ?><br>
 			<div class="content-view">
 				<?php echo $content->content?>
 			</div>
 		</div>
+		
+		
 		
 		<?php if(isset($content->attach->file1)):?>
 		<div class="kboard-attach">
