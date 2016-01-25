@@ -538,6 +538,7 @@ class KBContent {
 	 * @return string
 	 */
 	public function getThumbnail($width='', $height=''){
+		
 		if(isset($this->thumbnail["{$width}x{$height}"]) && $this->thumbnail["{$width}x{$height}"]){
 			return $this->thumbnail["{$width}x{$height}"];
 		}

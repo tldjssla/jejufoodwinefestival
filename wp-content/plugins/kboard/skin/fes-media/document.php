@@ -32,9 +32,11 @@
 		</div>
 		
 		<div class="kboard-content" itemprop="description">
-			<?php echo $content->option->urlLink ?><br>
-			<div class="content-view">
-				<?php echo $content->content?>
+			<div style="width: 560px;height: 315px;">
+				<?php echo $content->option->urlLink ?><br>
+				<div class="content-view">
+					<?php echo $content->content?>
+				</div>
 			</div>
 		</div>
 		

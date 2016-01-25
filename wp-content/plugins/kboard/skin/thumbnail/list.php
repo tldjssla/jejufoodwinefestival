@@ -71,7 +71,7 @@
 				<?php while($content = $list->hasNext()):?>
 				<tr>
 					<td class="kboard-list-uid"><?php echo $list->index()?></td>
-					<td class="kboard-list-thumbnail"><?php if($content->getThumbnail(120, 90)):?><img src="/wordpress<?php echo $content->getThumbnail(120, 90)?>" style="max-width:100px;" alt=""><?php else:?><i class="icon-picture"></i><?php endif?></td>
+					<td class="kboard-list-thumbnail"><?php if($content->getThumbnail(90, 120)):?><img src="/wordpress<?php echo $content->getThumbnail(90, 120)?>" style="max-width:100px;" alt=""><?php else:?><i class="icon-picture"></i><?php endif?></td>
 					<td class="kboard-list-title"><div class="cut_strings">
 							<a href="<?php echo $url->set('uid', $content->uid)->set('mod', 'document')->toString()?>"><?php echo $content->title?>
 							<?php if($content->secret):?><img src="<?php echo $skin_path?>/images/icon_lock.png" alt="<?php echo __('Secret', 'kboard')?>"><?php endif?>
